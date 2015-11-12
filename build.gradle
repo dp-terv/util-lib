@@ -61,7 +61,7 @@ eclipse {
 	project {
 		natures 'org.springsource.ide.eclipse.gradle.core.nature', 
 				'org.eclipse.jdt.core.javanature',
-				'org.springframework.ide.eclipse.core.springnature'			
+				'org.springframework.ide.eclipse.core.springnature'	
 	}
 	classpath {
 		containers 'org.springsource.ide.eclipse.gradle.classpathcontainer'
