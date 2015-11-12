@@ -5,13 +5,9 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.jmx.export.annotation.ManagedAttribute;
-import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.xml.xpath.XPathException;
-import org.springframework.xml.xpath.XPathParseException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -19,9 +15,6 @@ import org.w3c.dom.Node;
  * @author Kiss Dániel
  *
  */
-@ManagedResource(
-        objectName="bean:name=ContentBasedRouter",
-        description="Route xml dom documents.")
 public class ContentBasedRouter {
 	
 	public final static Logger logger = LoggerFactory.getLogger(ContentBasedRouter.class);
@@ -57,16 +50,10 @@ public class ContentBasedRouter {
 		Node node = document;
 			
 		for (RoutingRule rr : this.routingTable.values()) {
-			try {
-				boolean isContentMatch = rr.evaluate(node);
-				if(isContentMatch){
-					logger.debug("Routing: " + rr.getContentSelectorString() + " == " + rr.getExceptedContent().toString());
-					taskExecutor.execute(new MessageSender(rr.getRoute(), document));
-				}
-			} catch (XPathParseException e) {
-				logger.error(e.getMessage());
-			} catch (XPathException e) {
-				logger.error(e.getMessage());
+			boolean isContentMatch = rr.evaluate(node);
+			if(isContentMatch){
+				logger.debug("Routing: " + rr.getContentSelectorString() + " == " + rr.getExceptedContent().toString());
+				taskExecutor.execute(new MessageSender(rr.getRoute(), document));
 			}
 		}	
 	}
@@ -89,7 +76,6 @@ public class ContentBasedRouter {
 		return this.routingTable.remove(ruleName);
 	}
 
-	@ManagedAttribute
 	public Map<String, RoutingRule> getRoutingTable() {
 		return routingTable;
 	}
