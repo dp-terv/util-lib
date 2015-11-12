@@ -1,4 +1,4 @@
-package hu.bme.mit.v37zen.prepayment.integration;
+package hu.bme.mit.v37zen.prepayment.integration.xpath;
 
 import hu.bme.mit.v37zen.prepayment.util.xml.NamespaceHandler;
 import hu.bme.mit.v37zen.prepayment.util.xml.XPathUtil;

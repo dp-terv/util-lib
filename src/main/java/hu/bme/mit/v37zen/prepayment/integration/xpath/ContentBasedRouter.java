@@ -1,4 +1,4 @@
-package hu.bme.mit.v37zen.prepayment.integration;
+package hu.bme.mit.v37zen.prepayment.integration.xpath;
 
 import java.util.HashMap;
 import java.util.Map;
